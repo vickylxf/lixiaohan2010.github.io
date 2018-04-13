@@ -1,0 +1,231 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js继承</title>
+<script type="text/javascript">
+
+	//变量对象01
+	// function foo() { console.log('function foo') }
+	// var foo = 20;
+	// console.log(foo); // 20
+
+
+	//变量对象02
+	//function声明会比var声明优先级更高一点
+	// console.log(foo); // function foo
+	// function foo() { console.log('function foo') }
+	// var foo = 20;
+
+
+	//变量对象03
+	// function test() {
+	//     console.log(a);
+	//     console.log(foo());
+
+	//     var a = 1;
+	//     function foo() {
+	//         return 2;
+	//     }
+	// }
+	// test();
+
+	//变量对象04
+	// 这里有一个需要注意的地方，因为var声明的变量当遇到同名的属性时，会跳过而不会覆盖
+	// function test() {
+	//     console.log(foo); //function foo
+	//     console.log(bar); //undefined
+
+	//     var foo = 'Hello';
+	//     console.log(foo); //Hello
+	//     var bar = function () {
+	//         return 'world';
+	//     }
+
+	//     function foo() {
+	//         return 'hello';
+	//     }
+	// }
+	// test();
+
+
+	//闭包的特性
+	// for (var i=1; i<=5; i++) {
+
+	// 	(function(i){
+	// 		setTimeout(function timer() {
+	// 	        console.log(i);
+	// 	    }, i*1000 );	
+	// 	})(i);
+	    
+	// }
+
+	// for (var i=1; i<=5; i++) {
+
+	// 	setTimeout(function timer(i) {
+	//         console.log(i);
+	//     }, i*1000, i);
+	    
+	// }
+
+
+	// function f2(i){
+	// 	console.log(i);
+	// }
+	
+	// function f1(callback){
+	// 	for(var i=0;i<5;i++){
+
+	// 	}
+	// 	setTimeout(function(){
+	// 	    // f1 的代码
+	// 	    callback(i);
+	// 	},0);
+	// }
+	// f1(f2);
+
+
+	//setTimeout 详解
+	// setTimeout(function() {
+	//     console.log(a); //10    4
+	// }, 0);
+
+	// var a = 10;
+
+	// console.log(b); //undefined      1
+	// console.log(fn); //function fn   2
+
+	// var b = 20;
+
+	// function fn() {
+	//     setTimeout(function() {
+	//         console.log('setTImeout 10ms.'); //5
+	//     }, 10);
+	// }
+
+	// fn.toString = function() {
+	//     return 30;
+	// }
+
+	// console.log(fn); //30   3
+
+	// setTimeout(function() {
+	//     console.log('setTimeout 20ms.'); //6
+	// }, 20);
+
+	// fn();
+
+	// function demo() {
+	//     console.log(this);
+	// }
+
+	// demo();  // window
+	// new demo();  // demo
+
+	// window.history.back();
+	// window.history.forward();
+	// window.history.go(1);  //前进
+	// window.history.go(-1);  //后退
+
+
+	//事件循环机制
+	// demo1
+	// setTimeout(function() {
+	//     console.log('timeout1');
+	// })
+
+	// new Promise(function(resolve) {
+	//     console.log('promise1');
+	//     for(var i = 0; i < 1000; i++) {
+	//         i == 99 && resolve();
+	//     }
+	//     console.log('promise2');
+	// }).then(function() {
+	//     console.log('then1');
+	// })
+
+	// console.log('global1');
+
+
+
+	// demo02
+	// console.log('golb1'); //1
+
+	// setTimeout(function() {
+	//     console.log('timeout1');  //6
+	//     // process.nextTick(function() {
+	//     //     console.log('timeout1_nextTick');  //9
+	//     // })
+	//     new Promise(function(resolve) {
+	//         console.log('timeout1_promise');  //7
+	//         resolve();
+	//     }).then(function() {
+	//         console.log('timeout1_then')  //8
+	//     })
+	// })
+
+	
+	// new Promise(function(resolve) {
+	//     console.log('glob1_promise'); //2
+	//     resolve();
+	// }).then(function() {
+	//     console.log('glob1_then')  //4
+	// })
+
+	// setTimeout(function() {
+	//     console.log('timeout2');  //9
+	//     new Promise(function(resolve) {
+	//         console.log('timeout2_promise');  //10
+	//         resolve();
+	//     }).then(function() {
+	//         console.log('timeout2_then')  //11
+	//     })
+	// })
+
+	
+	// new Promise(function(resolve) {
+	//     console.log('glob2_promise'); //3
+	//     resolve();
+	// }).then(function() {
+	//     console.log('glob2_then')  //5
+	// })
+
+	function setData(json){
+		console.log(json.name);
+	}
+
+	function getDetail(callback){
+		setTimeout(function(){
+			callback && callback(data);
+		}, 0);
+
+		var data = {
+			name: "lxf",
+			age: 30
+		};
+	}
+	getDetail(setData);
+
+
+	//Promise对象
+	let prom = new Promise(function(resolve, reject){
+		if(true){
+			resolve();
+		}else{
+			reject();
+		}
+	});
+
+</script>
+</head>
+<body>
+	<!-- <div class="box">
+		<div class="child">11111111111</div>
+	</div>
+	<div class="box">222222222222</div> -->
+	<!-- <h1>This is a heading.</h1> -->
+	<!-- <img src="http://www.w3school.com.cn/i/eg_smile.gif"> -->
+	<!-- <div class="sidebar">This is left sidebar.</div>
+	<div class="content">This is right content area.</div> -->
+</body>
+</html>
